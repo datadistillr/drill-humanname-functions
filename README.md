@@ -22,6 +22,7 @@ And parses out the:
 
 * `getFirstName(<name>)`:  Gets the first name from the input name
 * `getLastName(<name>)`:  Gets the last name from the input name
+* `getLeadingInitial(<name>)`:  Gets the leading initial from the input name
 * `getNickName(<name>)`:  Gets the nickname from the input name
 * `getMiddleNames(<name>)`:  Gets the middle names from the input name
 * `getNameSuffix(<name>)`:  Gets the suffix from the input name (like 'Jr.', 'III')

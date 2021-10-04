@@ -81,4 +81,27 @@ public class HumanNameUDFTests extends ClusterTest {
 
     new RowSetComparison(expected).verifyAndClearAll(results);
   }
+
+
+  @Test
+  public void testLeadingInitial() throws RpcException {
+    String sql = "SELECT get_leading_initial('J. Walter Weatherman') as n1, " +
+      "get_leading_initial('Dr. F. Scott Fitzgerald') as n2 " +
+      "FROM (VALUES(1))";
+
+    QueryBuilder q = client.queryBuilder().sql(sql);
+    RowSet results = q.rowSet();
+
+    TupleMetadata expectedSchema = new SchemaBuilder()
+      .add("n1", MinorType.VARCHAR)
+      .add("n2", MinorType.VARCHAR)
+      .build();
+
+    RowSet expected = client.rowSetBuilder(expectedSchema)
+      .addRow("J.", "F.")
+      .build();
+
+    new RowSetComparison(expected).verifyAndClearAll(results);
+  }
+
 }
