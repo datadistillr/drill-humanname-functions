@@ -186,5 +186,159 @@ public class HumanNameUDFs {
     }
   }
 
+  @FunctionTemplate(names = {"getNickName", "get_nickname"},
+    scope = FunctionTemplate.FunctionScope.SIMPLE,
+    nulls = FunctionTemplate.NullHandling.NULL_IF_NULL)
+  public static class getNickNamesUDF implements DrillSimpleFunc {
 
+    @Param
+    VarCharHolder inputNameHolder;
+
+    @Output
+    VarCharHolder out;
+
+    @Inject
+    DrillBuf buffer;
+
+    @Override
+    public void setup() {
+
+    }
+
+    @Override
+    public void eval() {
+      String inputName = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(inputNameHolder);
+      com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
+
+      com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
+      com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+
+      String result = parser.getNicknames();
+
+      byte[] rowStringBytes = result.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+      buffer = buffer.reallocIfNeeded(rowStringBytes.length);
+      buffer.setBytes(0, rowStringBytes);
+
+      out.start = 0;
+      out.end = rowStringBytes.length;
+      out.buffer = buffer;
+    }
+  }
+
+  @FunctionTemplate(names = {"getPostnominal", "get_postnominal"},
+    scope = FunctionTemplate.FunctionScope.SIMPLE,
+    nulls = FunctionTemplate.NullHandling.NULL_IF_NULL)
+  public static class getPostnominalUDF implements DrillSimpleFunc {
+
+    @Param
+    VarCharHolder inputNameHolder;
+
+    @Output
+    VarCharHolder out;
+
+    @Inject
+    DrillBuf buffer;
+
+    @Override
+    public void setup() {
+
+    }
+
+    @Override
+    public void eval() {
+      String inputName = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(inputNameHolder);
+      com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
+
+      com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
+      com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+
+      String result = parser.getPostnominal();
+
+      byte[] rowStringBytes = result.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+      buffer = buffer.reallocIfNeeded(rowStringBytes.length);
+      buffer.setBytes(0, rowStringBytes);
+
+      out.start = 0;
+      out.end = rowStringBytes.length;
+      out.buffer = buffer;
+    }
+  }
+
+  @FunctionTemplate(names = {"getSalutation", "get_salutation"},
+    scope = FunctionTemplate.FunctionScope.SIMPLE,
+    nulls = FunctionTemplate.NullHandling.NULL_IF_NULL)
+  public static class getSalutationUDF implements DrillSimpleFunc {
+
+    @Param
+    VarCharHolder inputNameHolder;
+
+    @Output
+    VarCharHolder out;
+
+    @Inject
+    DrillBuf buffer;
+
+    @Override
+    public void setup() {
+
+    }
+
+    @Override
+    public void eval() {
+      String inputName = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(inputNameHolder);
+      com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
+
+      com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
+      com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+
+      String result = parser.getSalutation();
+
+      byte[] rowStringBytes = result.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+      buffer = buffer.reallocIfNeeded(rowStringBytes.length);
+      buffer.setBytes(0, rowStringBytes);
+
+      out.start = 0;
+      out.end = rowStringBytes.length;
+      out.buffer = buffer;
+    }
+  }
+
+  @FunctionTemplate(names = {"getNameSuffix", "get_name_suffix"},
+    scope = FunctionTemplate.FunctionScope.SIMPLE,
+    nulls = FunctionTemplate.NullHandling.NULL_IF_NULL)
+  public static class getSuffixUDF implements DrillSimpleFunc {
+
+    @Param
+    VarCharHolder inputNameHolder;
+
+    @Output
+    VarCharHolder out;
+
+    @Inject
+    DrillBuf buffer;
+
+    @Override
+    public void setup() {
+
+    }
+
+    @Override
+    public void eval() {
+      String inputName = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(inputNameHolder);
+      com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
+
+      com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
+      com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+
+      String result = parser.getSuffix();
+
+      byte[] rowStringBytes = result.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+      buffer = buffer.reallocIfNeeded(rowStringBytes.length);
+      buffer.setBytes(0, rowStringBytes);
+
+      out.start = 0;
+      out.end = rowStringBytes.length;
+      out.buffer = buffer;
+    }
+  }
 }

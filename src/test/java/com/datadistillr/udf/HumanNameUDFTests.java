@@ -124,4 +124,89 @@ public class HumanNameUDFTests extends ClusterTest {
 
     new RowSetComparison(expected).verifyAndClearAll(results);
   }
+
+  @Test
+  public void testNickName() throws RpcException {
+    String sql = "SELECT get_nickname('Menachem Mendel \"The Rebbe\" Schneerson') as n1, " +
+      "get_nickname('Dr. Shalom Dov Ber Grossman') as n2 " +
+      "FROM (VALUES(1))";
+
+    QueryBuilder q = client.queryBuilder().sql(sql);
+    RowSet results = q.rowSet();
+
+    TupleMetadata expectedSchema = new SchemaBuilder()
+      .add("n1", MinorType.VARCHAR)
+      .add("n2", MinorType.VARCHAR)
+      .build();
+
+    RowSet expected = client.rowSetBuilder(expectedSchema)
+      .addRow("The Rebbe", "")
+      .build();
+
+    new RowSetComparison(expected).verifyAndClearAll(results);
+  }
+
+  @Test
+  public void testGetPostnominal() throws RpcException {
+    String sql = "SELECT get_postnominal('Charles Givre Ph.D') as n1, " +
+      "get_postnominal('Dr. Shalom Dov Ber Grossman MD') as n2 " +
+      "FROM (VALUES(1))";
+
+    QueryBuilder q = client.queryBuilder().sql(sql);
+    RowSet results = q.rowSet();
+
+    TupleMetadata expectedSchema = new SchemaBuilder()
+      .add("n1", MinorType.VARCHAR)
+      .add("n2", MinorType.VARCHAR)
+      .build();
+
+    RowSet expected = client.rowSetBuilder(expectedSchema)
+      .addRow("Ph.D", "MD")
+      .build();
+
+    new RowSetComparison(expected).verifyAndClearAll(results);
+  }
+
+
+  @Test
+  public void testGetSalutation() throws RpcException {
+    String sql = "SELECT get_salutation('Mr. Charles Givre') as n1, " +
+      "get_salutation('Dr. Shalom Dov Ber Grossman MD') as n2 " +
+      "FROM (VALUES(1))";
+
+    QueryBuilder q = client.queryBuilder().sql(sql);
+    RowSet results = q.rowSet();
+
+    TupleMetadata expectedSchema = new SchemaBuilder()
+      .add("n1", MinorType.VARCHAR)
+      .add("n2", MinorType.VARCHAR)
+      .build();
+
+    RowSet expected = client.rowSetBuilder(expectedSchema)
+      .addRow("Mr.", "Dr.")
+      .build();
+
+    new RowSetComparison(expected).verifyAndClearAll(results);
+  }
+  
+  @Test
+  public void testGetSuffix() throws RpcException {
+    String sql = "SELECT get_name_suffix('Mr. Charles Givre Jr. Ph.D') as n1, " +
+      "get_name_suffix('Dr. Shalom Dov Ber Grossman IV MD') as n2 " +
+      "FROM (VALUES(1))";
+
+    QueryBuilder q = client.queryBuilder().sql(sql);
+    RowSet results = q.rowSet();
+
+    TupleMetadata expectedSchema = new SchemaBuilder()
+      .add("n1", MinorType.VARCHAR)
+      .add("n2", MinorType.VARCHAR)
+      .build();
+
+    RowSet expected = client.rowSetBuilder(expectedSchema)
+      .addRow("Jr.", "IV")
+      .build();
+
+    new RowSetComparison(expected).verifyAndClearAll(results);
+  }
 }
