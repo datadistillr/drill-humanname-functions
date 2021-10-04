@@ -147,5 +147,44 @@ public class HumanNameUDFs {
     }
   }
 
+  @FunctionTemplate(names = {"getMiddleNames", "get_middle_names"},
+    scope = FunctionTemplate.FunctionScope.SIMPLE,
+    nulls = FunctionTemplate.NullHandling.NULL_IF_NULL)
+  public static class getMiddleNamesUDF implements DrillSimpleFunc {
+
+    @Param
+    VarCharHolder inputNameHolder;
+
+    @Output
+    VarCharHolder out;
+
+    @Inject
+    DrillBuf buffer;
+
+    @Override
+    public void setup() {
+
+    }
+
+    @Override
+    public void eval() {
+      String inputName = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(inputNameHolder);
+      com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
+
+      com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
+      com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+
+      String result = parser.getMiddle();
+
+      byte[] rowStringBytes = result.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+      buffer = buffer.reallocIfNeeded(rowStringBytes.length);
+      buffer.setBytes(0, rowStringBytes);
+
+      out.start = 0;
+      out.end = rowStringBytes.length;
+      out.buffer = buffer;
+    }
+  }
+
 
 }

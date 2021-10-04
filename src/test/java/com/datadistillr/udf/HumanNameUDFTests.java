@@ -104,4 +104,24 @@ public class HumanNameUDFTests extends ClusterTest {
     new RowSetComparison(expected).verifyAndClearAll(results);
   }
 
+  @Test
+  public void testMiddleName() throws RpcException {
+    String sql = "SELECT get_middle_names('Menachem Mendel Schneerson') as n1, " +
+      "get_middle_names('Dr. Shalom Dov Ber Grossman') as n2 " +
+      "FROM (VALUES(1))";
+
+    QueryBuilder q = client.queryBuilder().sql(sql);
+    RowSet results = q.rowSet();
+
+    TupleMetadata expectedSchema = new SchemaBuilder()
+      .add("n1", MinorType.VARCHAR)
+      .add("n2", MinorType.VARCHAR)
+      .build();
+
+    RowSet expected = client.rowSetBuilder(expectedSchema)
+      .addRow("Mendel", "Dov Ber")
+      .build();
+
+    new RowSetComparison(expected).verifyAndClearAll(results);
+  }
 }
