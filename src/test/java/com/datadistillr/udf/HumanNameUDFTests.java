@@ -48,7 +48,6 @@ public class HumanNameUDFTests extends ClusterTest {
 
     QueryBuilder q = client.queryBuilder().sql(sql);
     RowSet results = q.rowSet();
-    results.print();
 
     TupleMetadata expectedSchema = new SchemaBuilder()
       .add("n1", MinorType.VARCHAR)
@@ -56,7 +55,28 @@ public class HumanNameUDFTests extends ClusterTest {
       .build();
 
     RowSet expected = client.rowSetBuilder(expectedSchema)
-      .addRow(617700169958293503L)
+      .addRow("Abraham", "Ana")
+      .build();
+
+    new RowSetComparison(expected).verifyAndClearAll(results);
+  }
+
+  @Test
+  public void testLastName() throws RpcException {
+    String sql = "SELECT get_last_name('Abraham Lincoln') as n1, " +
+      "get_last_name('de la Cruz, Ana M.') as n2 " +
+      "FROM (VALUES(1))";
+
+    QueryBuilder q = client.queryBuilder().sql(sql);
+    RowSet results = q.rowSet();
+
+    TupleMetadata expectedSchema = new SchemaBuilder()
+      .add("n1", MinorType.VARCHAR)
+      .add("n2", MinorType.VARCHAR)
+      .build();
+
+    RowSet expected = client.rowSetBuilder(expectedSchema)
+      .addRow("Lincoln", "de la Cruz")
       .build();
 
     new RowSetComparison(expected).verifyAndClearAll(results);

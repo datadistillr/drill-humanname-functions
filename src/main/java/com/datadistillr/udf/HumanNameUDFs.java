@@ -29,7 +29,6 @@ import javax.inject.Inject;
 
 public class HumanNameUDFs {
 
-
   @FunctionTemplate(names = {"getFirstName", "get_first_name"},
     scope = FunctionTemplate.FunctionScope.SIMPLE,
     nulls = FunctionTemplate.NullHandling.NULL_IF_NULL)
@@ -68,5 +67,45 @@ public class HumanNameUDFs {
       out.buffer = buffer;
     }
   }
+
+  @FunctionTemplate(names = {"getLastName", "get_last_name"},
+    scope = FunctionTemplate.FunctionScope.SIMPLE,
+    nulls = FunctionTemplate.NullHandling.NULL_IF_NULL)
+  public static class getLastNameUDF implements DrillSimpleFunc {
+
+    @Param
+    VarCharHolder inputNameHolder;
+
+    @Output
+    VarCharHolder out;
+
+    @Inject
+    DrillBuf buffer;
+
+    @Override
+    public void setup() {
+
+    }
+
+    @Override
+    public void eval() {
+      String inputName = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(inputNameHolder);
+      com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
+
+      com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
+      com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+
+      String result = parser.getLast();
+
+      byte[] rowStringBytes = result.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+      buffer = buffer.reallocIfNeeded(rowStringBytes.length);
+      buffer.setBytes(0, rowStringBytes);
+
+      out.start = 0;
+      out.end = rowStringBytes.length;
+      out.buffer = buffer;
+    }
+  }
+
 
 }
