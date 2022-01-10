@@ -51,14 +51,15 @@ public class HumanNameUDFs {
     @Override
     public void eval() {
       String inputName = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(inputNameHolder);
-      com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
-
-      com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
-      com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+      inputName = inputName.trim().replaceAll("[0-9]", "");
 
       String result = "";
 
       if (inputName.length() != 0) {
+        com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
+        com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
+        com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+
         result = parser.getFirst();
       }
 
@@ -94,14 +95,15 @@ public class HumanNameUDFs {
     @Override
     public void eval() {
       String inputName = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(inputNameHolder);
-      com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
-
-      com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
-      com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+      inputName = inputName.trim().replaceAll("[0-9]", "");
 
       String result = "";
 
       if (inputName.length() != 0) {
+        com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
+        com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
+        com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+
         result = parser.getLast();
       }
 
@@ -138,14 +140,15 @@ public class HumanNameUDFs {
     @Override
     public void eval() {
       String inputName = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(inputNameHolder);
-      com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
-
-      com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
-      com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+      inputName = inputName.trim().replaceAll("[0-9]", "");
 
       String result = "";
 
       if (inputName.length() != 0) {
+        com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
+        com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
+        com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+
         result = parser.getLeadingInit();
       }
 
@@ -181,14 +184,15 @@ public class HumanNameUDFs {
     @Override
     public void eval() {
       String inputName = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(inputNameHolder);
-      com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
-
-      com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
-      com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+      inputName = inputName.trim().replaceAll("[0-9]", "");
 
       String result = "";
 
       if (inputName.length() != 0) {
+        com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
+        com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
+        com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+
         result = parser.getMiddle();
       }
 
@@ -224,14 +228,15 @@ public class HumanNameUDFs {
     @Override
     public void eval() {
       String inputName = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(inputNameHolder);
-      com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
-
-      com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
-      com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+      inputName = inputName.trim().replaceAll("[0-9]", "");
 
       String result = "";
 
       if (inputName.length() != 0) {
+        com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
+        com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
+        com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+
         result = parser.getNicknames();
       }
 
@@ -267,14 +272,15 @@ public class HumanNameUDFs {
     @Override
     public void eval() {
       String inputName = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(inputNameHolder);
-      com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
-
-      com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
-      com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+      inputName = inputName.trim().replaceAll("[0-9]", "");
 
       String result = "";
 
       if (inputName.length() != 0) {
+        com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
+        com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
+        com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+
         result = parser.getPostnominal();
       }
 
@@ -310,14 +316,15 @@ public class HumanNameUDFs {
     @Override
     public void eval() {
       String inputName = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(inputNameHolder);
-      com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
-
-      com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
-      com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+      inputName = inputName.trim().replaceAll("[0-9]", "");
 
       String result = "";
 
       if (inputName.length() != 0) {
+        com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
+        com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
+        com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+
         result = parser.getSalutation();
       }
 
@@ -353,14 +360,15 @@ public class HumanNameUDFs {
     @Override
     public void eval() {
       String inputName = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(inputNameHolder);
-      com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
-
-      com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
-      com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+      inputName = inputName.trim().replaceAll("[0-9]", "");
 
       String result = "";
 
       if (inputName.length() != 0) {
+        com.tupilabs.human_name_parser.Name name = new com.tupilabs.human_name_parser.Name(inputName);
+        com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
+        com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
+
         result = parser.getSuffix();
       }
 

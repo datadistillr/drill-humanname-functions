@@ -43,7 +43,8 @@ public class HumanNameUDFTests extends ClusterTest {
   @Test
   public void testFirstName() throws RpcException {
     String sql = "SELECT get_first_name('Abraham Lincoln') as n1, " +
-      "get_first_name('de la Cruz, Ana M.') as n2 " +
+      "get_first_name('de la Cruz, Ana M.') as n2, " +
+      "get_first_name('') as n3 " +
       "FROM (VALUES(1))";
 
     QueryBuilder q = client.queryBuilder().sql(sql);
@@ -52,10 +53,11 @@ public class HumanNameUDFTests extends ClusterTest {
     TupleMetadata expectedSchema = new SchemaBuilder()
       .add("n1", MinorType.VARCHAR)
       .add("n2", MinorType.VARCHAR)
+      .add("n3", MinorType.VARCHAR)
       .build();
 
     RowSet expected = client.rowSetBuilder(expectedSchema)
-      .addRow("Abraham", "Ana")
+      .addRow("Abraham", "Ana", "")
       .build();
 
     new RowSetComparison(expected).verifyAndClearAll(results);
@@ -64,7 +66,8 @@ public class HumanNameUDFTests extends ClusterTest {
   @Test
   public void testLastName() throws RpcException {
     String sql = "SELECT get_last_name('Abraham Lincoln') as n1, " +
-      "get_last_name('de la Cruz, Ana M.') as n2 " +
+      "get_last_name('de la Cruz, Ana M.') as n2, " +
+      "get_last_name('') as n3 " +
       "FROM (VALUES(1))";
 
     QueryBuilder q = client.queryBuilder().sql(sql);
@@ -73,10 +76,11 @@ public class HumanNameUDFTests extends ClusterTest {
     TupleMetadata expectedSchema = new SchemaBuilder()
       .add("n1", MinorType.VARCHAR)
       .add("n2", MinorType.VARCHAR)
+      .add("n3", MinorType.VARCHAR)
       .build();
 
     RowSet expected = client.rowSetBuilder(expectedSchema)
-      .addRow("Lincoln", "de la Cruz")
+      .addRow("Lincoln", "de la Cruz", "")
       .build();
 
     new RowSetComparison(expected).verifyAndClearAll(results);
@@ -86,7 +90,9 @@ public class HumanNameUDFTests extends ClusterTest {
   @Test
   public void testLeadingInitial() throws RpcException {
     String sql = "SELECT get_leading_initial('J. Walter Weatherman') as n1, " +
-      "get_leading_initial('Dr. F. Scott Fitzgerald') as n2 " +
+      "get_leading_initial('Dr. F. Scott Fitzgerald') as n2, " +
+      "get_leading_initial('') as n3, " +
+      "get_leading_initial(' ') as n4 " +
       "FROM (VALUES(1))";
 
     QueryBuilder q = client.queryBuilder().sql(sql);
@@ -95,10 +101,12 @@ public class HumanNameUDFTests extends ClusterTest {
     TupleMetadata expectedSchema = new SchemaBuilder()
       .add("n1", MinorType.VARCHAR)
       .add("n2", MinorType.VARCHAR)
+      .add("n3", MinorType.VARCHAR)
+      .add("n4", MinorType.VARCHAR)
       .build();
 
     RowSet expected = client.rowSetBuilder(expectedSchema)
-      .addRow("J.", "F.")
+      .addRow("J.", "F.", "", "")
       .build();
 
     new RowSetComparison(expected).verifyAndClearAll(results);
@@ -107,7 +115,9 @@ public class HumanNameUDFTests extends ClusterTest {
   @Test
   public void testMiddleName() throws RpcException {
     String sql = "SELECT get_middle_names('Menachem Mendel Schneerson') as n1, " +
-      "get_middle_names('Dr. Shalom Dov Ber Grossman') as n2 " +
+      "get_middle_names('Dr. Shalom Dov Ber Grossman') as n2, " +
+      "get_middle_names('  ') as n3, " +
+      "get_middle_names('   Dr. Shalom Dov Ber Grossman  ') as n4 " +
       "FROM (VALUES(1))";
 
     QueryBuilder q = client.queryBuilder().sql(sql);
@@ -116,10 +126,12 @@ public class HumanNameUDFTests extends ClusterTest {
     TupleMetadata expectedSchema = new SchemaBuilder()
       .add("n1", MinorType.VARCHAR)
       .add("n2", MinorType.VARCHAR)
+      .add("n3", MinorType.VARCHAR)
+      .add("n4", MinorType.VARCHAR)
       .build();
 
     RowSet expected = client.rowSetBuilder(expectedSchema)
-      .addRow("Mendel", "Dov Ber")
+      .addRow("Mendel", "Dov Ber", "", "Dov Ber")
       .build();
 
     new RowSetComparison(expected).verifyAndClearAll(results);
@@ -128,7 +140,8 @@ public class HumanNameUDFTests extends ClusterTest {
   @Test
   public void testNickName() throws RpcException {
     String sql = "SELECT get_nickname('Menachem Mendel \"The Rebbe\" Schneerson') as n1, " +
-      "get_nickname('Dr. Shalom Dov Ber Grossman') as n2 " +
+      "get_nickname('Dr. Shalom Dov Ber Grossman') as n2, " +
+      "get_nickname('') as n3 " +
       "FROM (VALUES(1))";
 
     QueryBuilder q = client.queryBuilder().sql(sql);
@@ -137,10 +150,11 @@ public class HumanNameUDFTests extends ClusterTest {
     TupleMetadata expectedSchema = new SchemaBuilder()
       .add("n1", MinorType.VARCHAR)
       .add("n2", MinorType.VARCHAR)
+      .add("n3", MinorType.VARCHAR)
       .build();
 
     RowSet expected = client.rowSetBuilder(expectedSchema)
-      .addRow("The Rebbe", "")
+      .addRow("The Rebbe", "", "")
       .build();
 
     new RowSetComparison(expected).verifyAndClearAll(results);
@@ -149,7 +163,8 @@ public class HumanNameUDFTests extends ClusterTest {
   @Test
   public void testGetPostnominal() throws RpcException {
     String sql = "SELECT get_postnominal('Charles Givre Ph.D') as n1, " +
-      "get_postnominal('Dr. Shalom Dov Ber Grossman MD') as n2 " +
+      "get_postnominal('Dr. Shalom Dov Ber Grossman MD') as n2, " +
+      "get_postnominal(' ') as n3 " +
       "FROM (VALUES(1))";
 
     QueryBuilder q = client.queryBuilder().sql(sql);
@@ -158,10 +173,11 @@ public class HumanNameUDFTests extends ClusterTest {
     TupleMetadata expectedSchema = new SchemaBuilder()
       .add("n1", MinorType.VARCHAR)
       .add("n2", MinorType.VARCHAR)
+      .add("n3", MinorType.VARCHAR)
       .build();
 
     RowSet expected = client.rowSetBuilder(expectedSchema)
-      .addRow("Ph.D", "MD")
+      .addRow("Ph.D", "MD", "")
       .build();
 
     new RowSetComparison(expected).verifyAndClearAll(results);
@@ -171,7 +187,8 @@ public class HumanNameUDFTests extends ClusterTest {
   @Test
   public void testGetSalutation() throws RpcException {
     String sql = "SELECT get_salutation('Mr. Charles Givre') as n1, " +
-      "get_salutation('Dr. Shalom Dov Ber Grossman MD') as n2 " +
+      "get_salutation('Dr. Shalom Dov Ber Grossman MD') as n2, " +
+      "get_salutation('') as n3 " +
       "FROM (VALUES(1))";
 
     QueryBuilder q = client.queryBuilder().sql(sql);
@@ -180,10 +197,11 @@ public class HumanNameUDFTests extends ClusterTest {
     TupleMetadata expectedSchema = new SchemaBuilder()
       .add("n1", MinorType.VARCHAR)
       .add("n2", MinorType.VARCHAR)
+      .add("n3", MinorType.VARCHAR)
       .build();
 
     RowSet expected = client.rowSetBuilder(expectedSchema)
-      .addRow("Mr.", "Dr.")
+      .addRow("Mr.", "Dr.", "")
       .build();
 
     new RowSetComparison(expected).verifyAndClearAll(results);
@@ -192,7 +210,8 @@ public class HumanNameUDFTests extends ClusterTest {
   @Test
   public void testGetSuffix() throws RpcException {
     String sql = "SELECT get_name_suffix('Mr. Charles Givre Jr. Ph.D') as n1, " +
-      "get_name_suffix('Dr. Shalom Dov Ber Grossman IV MD') as n2 " +
+      "get_name_suffix('Dr. Shalom Dov Ber Grossman IV MD') as n2, " +
+      "get_name_suffix('12345') as n3 " +
       "FROM (VALUES(1))";
 
     QueryBuilder q = client.queryBuilder().sql(sql);
@@ -201,10 +220,11 @@ public class HumanNameUDFTests extends ClusterTest {
     TupleMetadata expectedSchema = new SchemaBuilder()
       .add("n1", MinorType.VARCHAR)
       .add("n2", MinorType.VARCHAR)
+      .add("n3", MinorType.VARCHAR)
       .build();
 
     RowSet expected = client.rowSetBuilder(expectedSchema)
-      .addRow("Jr.", "IV")
+      .addRow("Jr.", "IV", "")
       .build();
 
     new RowSetComparison(expected).verifyAndClearAll(results);
