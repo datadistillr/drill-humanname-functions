@@ -56,7 +56,11 @@ public class HumanNameUDFs {
       com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
       com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
 
-      String result = parser.getFirst();
+      String result = "";
+
+      if (inputName.length() != 0) {
+        result = parser.getFirst();
+      }
 
       byte[] rowStringBytes = result.getBytes(java.nio.charset.StandardCharsets.UTF_8);
       buffer = buffer.reallocIfNeeded(rowStringBytes.length);
@@ -95,7 +99,11 @@ public class HumanNameUDFs {
       com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
       com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
 
-      String result = parser.getLast();
+      String result = "";
+
+      if (inputName.length() != 0) {
+        result = parser.getLast();
+      }
 
       byte[] rowStringBytes = result.getBytes(java.nio.charset.StandardCharsets.UTF_8);
       buffer = buffer.reallocIfNeeded(rowStringBytes.length);
@@ -135,7 +143,11 @@ public class HumanNameUDFs {
       com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
       com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
 
-      String result = parser.getLeadingInit();
+      String result = "";
+
+      if (inputName.length() != 0) {
+        result = parser.getLeadingInit();
+      }
 
       byte[] rowStringBytes = result.getBytes(java.nio.charset.StandardCharsets.UTF_8);
       buffer = buffer.reallocIfNeeded(rowStringBytes.length);
@@ -174,7 +186,11 @@ public class HumanNameUDFs {
       com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
       com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
 
-      String result = parser.getMiddle();
+      String result = "";
+
+      if (inputName.length() != 0) {
+        result = parser.getMiddle();
+      }
 
       byte[] rowStringBytes = result.getBytes(java.nio.charset.StandardCharsets.UTF_8);
       buffer = buffer.reallocIfNeeded(rowStringBytes.length);
@@ -213,7 +229,11 @@ public class HumanNameUDFs {
       com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
       com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
 
-      String result = parser.getNicknames();
+      String result = "";
+
+      if (inputName.length() != 0) {
+        result = parser.getNicknames();
+      }
 
       byte[] rowStringBytes = result.getBytes(java.nio.charset.StandardCharsets.UTF_8);
       buffer = buffer.reallocIfNeeded(rowStringBytes.length);
@@ -252,7 +272,11 @@ public class HumanNameUDFs {
       com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
       com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
 
-      String result = parser.getPostnominal();
+      String result = "";
+
+      if (inputName.length() != 0) {
+        result = parser.getPostnominal();
+      }
 
       byte[] rowStringBytes = result.getBytes(java.nio.charset.StandardCharsets.UTF_8);
       buffer = buffer.reallocIfNeeded(rowStringBytes.length);
@@ -291,7 +315,11 @@ public class HumanNameUDFs {
       com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
       com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
 
-      String result = parser.getSalutation();
+      String result = "";
+
+      if (inputName.length() != 0) {
+        result = parser.getSalutation();
+      }
 
       byte[] rowStringBytes = result.getBytes(java.nio.charset.StandardCharsets.UTF_8);
       buffer = buffer.reallocIfNeeded(rowStringBytes.length);
@@ -330,7 +358,11 @@ public class HumanNameUDFs {
       com.tupilabs.human_name_parser.HumanNameParserBuilder builder = new com.tupilabs.human_name_parser.HumanNameParserBuilder(name);
       com.tupilabs.human_name_parser.HumanNameParserParser parser = builder.build();
 
-      String result = parser.getSuffix();
+      String result = "";
+
+      if (inputName.length() != 0) {
+        result = parser.getSuffix();
+      }
 
       byte[] rowStringBytes = result.getBytes(java.nio.charset.StandardCharsets.UTF_8);
       buffer = buffer.reallocIfNeeded(rowStringBytes.length);
