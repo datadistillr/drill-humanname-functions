@@ -33,8 +33,8 @@ And parses out the:
 Simply include one of the functions above in a Drill query:
 
 ```sql
-SELECT getFirstName(<namefield) AS firstName, 
-       getLastName(<namefield) AS lastName 
+SELECT getFirstName(<namefield>) AS firstName, 
+       getLastName(<namefield>) AS lastName 
 FROM ...
 ```
 
